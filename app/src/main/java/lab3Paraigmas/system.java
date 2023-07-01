@@ -11,7 +11,7 @@ import java.util.ArrayList;
  * @author Toshiba
  */
 public class system implements FileSystem {
-
+    
     int contador = 0;
     /*atributo de la clase system*/
     private String name;
@@ -23,31 +23,31 @@ public class system implements FileSystem {
     public system(String name) {
         this.name = name;
     }
-
+    
     public String getName() {
         return name;
     }
-
+    
     public void setName(String name) {
         this.name = name;
     }
-
+    
     public ArrayList<drive> getDrives() {
         return Drives;
     }
-
+    
     public void setDrives(ArrayList<drive> Drives) {
         this.Drives = Drives;
     }
-
+    
     public ArrayList<user> getUsers() {
         return Users;
     }
-
+    
     public void setUsers(ArrayList<user> Users) {
         this.Users = Users;
     }
-
+    
     public ArrayList<route> getRoutes() {
         return Routes;
     }
@@ -59,7 +59,7 @@ public class system implements FileSystem {
     public void setRoutes(ArrayList<route> Routes) {
         this.Routes = Routes;
     }
-
+    
     @Override
     public String toString() {
         return "system{" + "name=" + name + ", Drives=" + Drives + ", Users=" + Users + ", Routes=" + Routes + '}';
@@ -100,7 +100,7 @@ public class system implements FileSystem {
             contador++;
             getRoutes().add(newRoute);
             System.out.println("Unidad anadida con exito.");
-
+            
         } else {
             System.out.println("La letra de la unidad que se intenta crear ya existe en el sistema.");
         }
@@ -119,19 +119,19 @@ public class system implements FileSystem {
         for (int i = 0; i < getUsers().size(); i++) {
             if (getUsers().get(i).getName().equals(username)) {
                 state = true;
-
+                
             }
         }
-
+        
         if (state == false) {  //no se encuentra el usuario
             user newUser = new user(username, 0);
             getUsers().add(newUser);
             System.out.println("Usuario ingresado con exito.");
-
+            
         } else {
             System.out.println("El usuario ya existe, no se realizan cambios en el sistema");
         }
-
+        
     }
 
     /**
@@ -147,41 +147,74 @@ public class system implements FileSystem {
             if (getUsers().get(i).getName().equals(username) && getUsers().get(i).getState() == 0) {
                 getUsers().get(i).setState(1);
                 System.out.println("Usuario " + username + " logueado correctamente");
-
-            }else{
-                 getUsers().get(i).setState(0);
-                }
-
+                
+            } else {
+                getUsers().get(i).setState(0);
+            }
+            
         }
         System.out.println("El usuario no existe o bien ya esta logueado");
-
+        
     }
-    
-    /**
-     *Metodo logout: Método que permite cerrar la sesión de un usuario en el sistema.
 
+    /**
+     * Metodo logout: Método que permite cerrar la sesión de un usuario en el
+     * sistema.
+     *
      */
     @Override
-    public void logout(){
+    public void logout() {
         /*elimino al usuario logueado*/
         for (int i = 0; i < getUsers().size(); i++) {
             if (getUsers().get(i).getState() == 1) {
                 /*modifico con setter*/
                 getUsers().get(i).setState(0);
                 System.out.println("El usuario se ha deslogueado correctamente");
-
+                
             }
         }
-       
+        
+    }
+
+    /**
+     * metodo switchDrive: Permite fijar la unidad en la que el usuario
+     * realizará acciones.El método solo debe funcionar cuando hay un usuario
+     * con sesión iniciada en el sistema a partir del método de login.
+     *
+     * @param letter
+     */
+    @Override
+    public void switchDrive(String letter) {
+        /*primero, debe existir un usuario logueado*/
+ /*si la lista de unidades no es nula*/
+        if (getDrives() != null) {
+            drive aux = null;
+            for (int i = 0; i < getUsers().size(); i++) {
+                if (getUsers().get(i).getState() == 1) { //si hay un user logueado
+                    /*busco la unidad*/
+                    for (drive drive : getDrives()) {
+                        if (drive.getLetter().equals(letter)) { //la muevo al inicio del array
+                           aux = drive;
+                            
+                            
+                        }
+                    }
+                    if (aux != null) {
+                            getDrives().remove(aux);
+                            getDrives().add(0, aux);
+                            System.out.println("Unidad cambiada con exito");
+                    }else{
+                        System.out.println("La Unidad no existe");
+                    }
+                    
+                    
+                }
+                
+            }
+        } else {
+            System.out.println("La Unidad no existe");
+        }
         
     }
     
-    /**
-     * metodo switchDrive: Permite fijar la unidad en la que el usuario realizará acciones.El método solo debe funcionar cuando hay un usuario con sesión iniciada en el sistema a partir del método de login.
-     * @param letter
-     */
-    public void switchDrive(String letter){
-        
-    }
-
 }

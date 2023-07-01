@@ -14,4 +14,5 @@ public interface FileSystem {
     public void register(String username);
     public void login(String username);
     public void logout();
+    public void switchDrive(String letter);
 }

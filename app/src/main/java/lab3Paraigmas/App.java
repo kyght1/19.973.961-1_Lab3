@@ -54,6 +54,7 @@ public class App {
                     System.out.println("2) Registrar usuario en el sistema (register)");
                     System.out.println("3) Loguear usuario en el sistema (login)");
                     System.out.println("4) Desloguear usuario en el sistema (logout)");
+                    System.out.println("5) Cambiar unidad (switchDrive)");
 
                     System.out.println("-----------------------------------");
                     System.out.printf("Ingrese una opcion: ");
@@ -121,7 +122,22 @@ public class App {
                         System.out.println(newSystem.toString());
 
                     }
+                    if (option == 5) {
+                        /*switchDrive*/
+                        Scanner sc = new Scanner(System.in);
+                        System.out.printf("Ingrese la letra de la unidad a la que desea cambiar :");
+                        String driveLetter = sc.nextLine();
+                        /*ejecuto el metodo*
+                        */
+                        newSystem.switchDrive(driveLetter);
 
+                        
+                        /*lo muestro*/
+                        System.out.println("---------------------------------------");
+
+                        System.out.println(newSystem.toString());
+
+                    }
                 }
             }
 
