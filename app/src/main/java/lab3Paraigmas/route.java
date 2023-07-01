@@ -10,7 +10,7 @@ import java.util.ArrayList;
  */
 public class route extends element {
     private int id_father;
-    private ArrayList<Object> Sons = new ArrayList<>();
+    private ArrayList<String> Sons = new ArrayList<>();
 
     public route(int id_father, int id, String name) {
         super(id, name);
@@ -25,11 +25,11 @@ public class route extends element {
         this.id_father = id_father;
     }
 
-    public ArrayList<Object> getSons() {
+    public ArrayList<String> getSons() {
         return Sons;
     }
 
-    public void setSons(ArrayList<Object> Sons) {
+    public void setSons(ArrayList<String> Sons) {
         this.Sons = Sons;
     }
 

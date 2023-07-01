@@ -50,8 +50,11 @@ public class App {
                 /*Opcion de modificación del sistema... añadiendo opciones*/
                 if (option == 2) {
                     /*desplego opciones de modificacion*/
-                    System.out.println("1) Anadir unidad al sistema");
-                    System.out.println("2) Registrar usuario en el sistema");
+                    System.out.println("1) Anadir unidad al sistema (addDrive)");
+                    System.out.println("2) Registrar usuario en el sistema (register)");
+                    System.out.println("3) Loguear usuario en el sistema (login)");
+                    System.out.println("4) Desloguear usuario en el sistema (logout)");
+
                     System.out.println("-----------------------------------");
                     System.out.printf("Ingrese una opcion: ");
                     option = opt.nextInt();
@@ -63,23 +66,59 @@ public class App {
                         int capacity;
 
                         /*pido datos de la unidad*/
-                        System.out.printf("Ingrese la letra de la unidad :");
+                        System.out.printf("Ingrese la letra de la unidad : ");
                         letter = sc.nextLine();
 
-                        System.out.printf("Ingrese el nombre de la unidad :");
+                        System.out.printf("Ingrese el nombre de la unidad : ");
 
                         name = sc.nextLine();
 
-                        System.out.printf("Ingrese la capacidad de la unidad :");
+                        System.out.printf("Ingrese la capacidad de la unidad : ");
 
                         capacity = sc.nextInt();
+                        System.out.println("---------------------------------------");
 
                         newSystem.addDrive(letter, name, capacity);
+                        System.out.println("---------------------------------------");
+
                         System.out.println(newSystem.toString());
 
                     }
                     if (option == 2) {
-                        salir = true;
+                        /*register*/
+                        Scanner sc = new Scanner(System.in);
+                        System.out.printf("Ingrese el nombre de usuario a registrar en sistema :");
+                        String username = sc.nextLine();
+
+                        /*ejecuto metodo register*/
+                        newSystem.register(username);
+                        /*lo muestro*/
+                        System.out.println("---------------------------------------");
+
+                        System.out.println(newSystem.toString());
+
+                    }
+                    if (option == 3) {
+                        /*login*/
+                        Scanner sc = new Scanner(System.in);
+                        System.out.printf("Ingrese el nombre de usuario a loguear en sistema :");
+                        String username = sc.nextLine();
+                        /*ejecuto metodo login*/
+                        newSystem.login(username);
+                        /*lo muestro*/
+                        System.out.println("---------------------------------------");
+
+                        System.out.println(newSystem.toString());
+
+                    }
+                    if (option == 4) {
+                        /*logout*/
+
+                        newSystem.logout();
+                        /*lo muestro*/
+                        System.out.println("---------------------------------------");
+
+                        System.out.println(newSystem.toString());
 
                     }
 

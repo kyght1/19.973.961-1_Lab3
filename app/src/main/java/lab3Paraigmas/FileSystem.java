@@ -10,6 +10,8 @@ package lab3Paraigmas;
  */
 /*interfaz de system*/
 public interface FileSystem {
-    public void addDrive();
-    
+    public void addDrive(String letter, String name, int capacity);
+    public void register(String username);
+    public void login(String username);
+    public void logout();
 }
