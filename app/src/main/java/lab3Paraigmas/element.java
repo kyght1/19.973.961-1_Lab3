@@ -16,14 +16,6 @@ public class element implements OperationsByElement {
         this.id = id;
         this.name = name;
     }
-
-    @Override
-    public String toString() {
-        return "element{" + "id=" + id + ", name=" + name + '}';
-    }
-    
-    
-
     @Override
     public void createElement() {
         System.out.println("CrearElemento");

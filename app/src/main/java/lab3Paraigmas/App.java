@@ -55,6 +55,7 @@ public class App {
                     System.out.println("3) Loguear usuario en el sistema (login)");
                     System.out.println("4) Desloguear usuario en el sistema (logout)");
                     System.out.println("5) Cambiar unidad (switchDrive)");
+                    System.out.println("6) Crear directorio (mkdir)");
 
                     System.out.println("-----------------------------------");
                     System.out.printf("Ingrese una opcion: ");
@@ -128,10 +129,24 @@ public class App {
                         System.out.printf("Ingrese la letra de la unidad a la que desea cambiar :");
                         String driveLetter = sc.nextLine();
                         /*ejecuto el metodo*
-                        */
+                         */
                         newSystem.switchDrive(driveLetter);
 
-                        
+                        /*lo muestro*/
+                        System.out.println("---------------------------------------");
+
+                        System.out.println(newSystem.toString());
+
+                    }
+                    if (option == 6) {
+                        /*mkdir*/
+                        Scanner sc = new Scanner(System.in);
+                        System.out.printf("Ingrese el nombre del nuevo directorio a crear (carpeta) :");
+                        String folderName = sc.nextLine();
+                        /*ejecuto el metodo*
+                         */
+                        newSystem.mkdir(folderName);
+
                         /*lo muestro*/
                         System.out.println("---------------------------------------");
 

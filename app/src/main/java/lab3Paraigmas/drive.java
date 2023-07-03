@@ -62,7 +62,7 @@ public class drive extends element{
 
     @Override
     public String toString() {
-        return "drive{" + "nameUnity =" + name + ",  letter=" + letter + ", capacity=" + capacity + ", data=" + data + '}';
+        return "drive{ "+name + " , " + letter + " , " + capacity + " , " + data + '}';
     }
 
     

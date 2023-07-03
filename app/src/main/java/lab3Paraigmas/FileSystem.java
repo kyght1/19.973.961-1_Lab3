@@ -15,4 +15,5 @@ public interface FileSystem {
     public void login(String username);
     public void logout();
     public void switchDrive(String letter);
+    public void mkdir(String folderName);
 }
