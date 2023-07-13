@@ -19,10 +19,11 @@ public class App {
         boolean salir = false;
         Scanner opt = new Scanner(System.in);
         int option;
-        system newSystem = null;
+        System_ newSystem = null;
+        System.out.println("Bievenido, seleccione una opcion para continuar");
         /*variable para sistema*/
         while (!salir) {
-            System.out.println("Bievenido, seleccione una opcion para continuar");
+            
             System.out.println("-------------------------------------------------");
             System.out.println("1) Crear Sistema");
             System.out.println("2) Modificar Sistema");
@@ -40,7 +41,7 @@ public class App {
                     Scanner sc = new Scanner(System.in);
                     System.out.printf("Ingrese el nombre del sistema a crear: ");
                     String nameSystem = sc.nextLine();
-                    newSystem = new system(nameSystem);
+                    newSystem = new System_(nameSystem);
                     System.out.println("-----------------------------------");
                     System.out.printf("Info sistema : ");
 
@@ -56,6 +57,9 @@ public class App {
                     System.out.println("4) Desloguear usuario en el sistema (logout)");
                     System.out.println("5) Cambiar unidad (switchDrive)");
                     System.out.println("6) Crear directorio (mkdir)");
+                    System.out.println("7) Cambiar directorio (cd)");
+                    System.out.println("8) Anadir archivo (addFile)");
+                    System.out.println("9) Eliminar archivo o archivos (del)");
 
                     System.out.println("-----------------------------------");
                     System.out.printf("Ingrese una opcion: ");
@@ -89,7 +93,7 @@ public class App {
                     if (option == 2) {
                         /*register*/
                         Scanner sc = new Scanner(System.in);
-                        System.out.printf("Ingrese el nombre de usuario a registrar en sistema :");
+                        System.out.printf("Ingrese el nombre de usuario a registrar en sistema : ");
                         String username = sc.nextLine();
 
                         /*ejecuto metodo register*/
@@ -103,7 +107,7 @@ public class App {
                     if (option == 3) {
                         /*login*/
                         Scanner sc = new Scanner(System.in);
-                        System.out.printf("Ingrese el nombre de usuario a loguear en sistema :");
+                        System.out.printf("Ingrese el nombre de usuario a loguear en sistema : ");
                         String username = sc.nextLine();
                         /*ejecuto metodo login*/
                         newSystem.login(username);
@@ -126,7 +130,7 @@ public class App {
                     if (option == 5) {
                         /*switchDrive*/
                         Scanner sc = new Scanner(System.in);
-                        System.out.printf("Ingrese la letra de la unidad a la que desea cambiar :");
+                        System.out.printf("Ingrese la letra de la unidad a la que desea cambiar : ");
                         String driveLetter = sc.nextLine();
                         /*ejecuto el metodo*
                          */
@@ -141,7 +145,7 @@ public class App {
                     if (option == 6) {
                         /*mkdir*/
                         Scanner sc = new Scanner(System.in);
-                        System.out.printf("Ingrese el nombre del nuevo directorio a crear (carpeta) :");
+                        System.out.printf("Ingrese el nombre del nuevo directorio a crear (carpeta) : ");
                         String folderName = sc.nextLine();
                         /*ejecuto el metodo*
                          */
@@ -153,11 +157,53 @@ public class App {
                         System.out.println(newSystem.toString());
 
                     }
+                    if (option == 7) {
+                        /*cd*/
+                        Scanner sc = new Scanner(System.in);
+                        System.out.printf("Ingrese el path:");
+                        String path = sc.nextLine();
+                        /*ejecuto el metodo*
+                         */
+                        newSystem.cd(path);
+
+                        /*lo muestro*/
+                        System.out.println("---------------------------------------");
+
+                        System.out.println(newSystem.toString());
+
+                    }
+                    if (option == 8) {
+                        /*addfile*/
+                        Scanner sc = new Scanner(System.in);
+                        String name;
+                        String content;
+                        String format;
+
+                        /*pido datos de la unidad*/
+                        System.out.printf("Ingrese el nombre del archivo : ");
+                        name = sc.nextLine();
+
+                        System.out.printf("Ingrese el contenido del archivo : ");
+
+                        content = sc.nextLine();
+
+                        System.out.printf("Ingrese el formato del archivo : ");
+
+                        format = sc.nextLine();
+                        System.out.println("---------------------------------------");
+                        //creo archivo
+                        Archive newArchive = new Archive(format,content,"",0,name);
+
+                        newSystem.addFile(newArchive);
+                        System.out.println("---------------------------------------");
+
+                        System.out.println(newSystem.toString());
+                    }
                 }
             }
 
         }
-        System.out.println("Sali");
+        System.out.println("Ejecucion terminada");
     }
 
 }

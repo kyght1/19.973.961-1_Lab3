@@ -12,16 +12,16 @@ import java.time.LocalDateTime;
  *
  * @author Toshiba
  */
-public class directory extends element {
+public class Directory extends element {
 
-    private int id_father;
-    private LocalDateTime creationDate;
-    private LocalDateTime modDate;
+    
+    private String creationDate;
+    private String modDate;
     private ArrayList<String> atributes;
     private ArrayList<Object> dataDirectory;
     private String hash;
 
-    public directory(int id_father, LocalDateTime creationDate, LocalDateTime modDate, ArrayList<String> atributes, ArrayList<Object> dataDirectory, String hash, int id, String name) {
+    public Directory(int id_father, String creationDate, String modDate, ArrayList<String> atributes, ArrayList<Object> dataDirectory, String hash, int id, String name) {
         super(id, name);
         this.id_father = id_father;
         this.creationDate = creationDate;
@@ -31,27 +31,29 @@ public class directory extends element {
         this.hash = hash;
     }
 
+    @Override
     public int getId_father() {
         return id_father;
     }
 
+    @Override
     public void setId_father(int id_father) {
         this.id_father = id_father;
     }
 
-    public LocalDateTime getCreationDate() {
+    public String getCreationDate() {
         return creationDate;
     }
 
-    public void setCreationDate(LocalDateTime creationDate) {
+    public void setCreationDate(String creationDate) {
         this.creationDate = creationDate;
     }
 
-    public LocalDateTime getModDate() {
+    public String getModDate() {
         return modDate;
     }
 
-    public void setModDate(LocalDateTime modDate) {
+    public void setModDate(String modDate) {
         this.modDate = modDate;
     }
 
@@ -80,11 +82,31 @@ public class directory extends element {
     }
 
     @Override
-    public String toString() {
-        return "directory{" + "id_father=" + id_father + " , " + creationDate + " , " + modDate + " , " + atributes + " , " + dataDirectory + ", hash=" + hash + '}';
+    public int getId() {
+        return id;
     }
 
-   
+    @Override
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    @Override
+    public String getName() {
+        return name;
+    }
+
+    @Override
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    @Override
+    public String toString() {
+        return "directory{" + "id=" +id + ", " + name + " id_father=" + id_father + ", " + creationDate + ", " + dataDirectory +'}';
+    }
+                
+
    
 
 }

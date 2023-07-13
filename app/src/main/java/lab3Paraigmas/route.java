@@ -8,19 +8,21 @@ import java.util.ArrayList;
  *
  * @author Toshiba
  */
-public class route extends element {
-    private int id_father;
+public class Route extends element {
+   
     private ArrayList<String> Sons = new ArrayList<>();
 
-    public route(int id_father, int id, String name) {
+    public Route(int id_father, int id, String name) {
         super(id, name);
         this.id_father = id_father;
     }
 
+    @Override
     public int getId_father() {
         return id_father;
     }
 
+    @Override
     public void setId_father(int id_father) {
         this.id_father = id_father;
     }
@@ -33,25 +35,29 @@ public class route extends element {
         this.Sons = Sons;
     }
 
+    @Override
     public int getId() {
         return id;
     }
 
+    @Override
     public void setId(int id) {
         this.id = id;
     }
 
+    @Override
     public String getName() {
         return name;
     }
 
+    @Override
     public void setName(String name) {
         this.name = name;
     }
 
     @Override
     public String toString() {
-        return "route{" + "id_father=" + id_father +", Name =" + name + ", id =" + id + ", Sons=" + Sons + '}';
+        return "route{" + "id_father= " + id_father +", Name= " + name + ", id =" + id + "," + Sons + '}';
     }
 
     

@@ -5,7 +5,7 @@
 package lab3Paraigmas;
 
 /*No necesariamente se crea una interfaz*/
-public class user {
+public class User {
     private String name;
     private int state;
 
@@ -15,7 +15,7 @@ public class user {
     }
     
 
-    public user(String name, int state) {
+    public User(String name, int state) {
         this.name = name;
         this.state = state;
     }

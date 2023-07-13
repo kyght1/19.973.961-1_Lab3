@@ -16,4 +16,7 @@ public interface FileSystem {
     public void logout();
     public void switchDrive(String letter);
     public void mkdir(String folderName);
+    public void cd(String path);
+    public void addFile(Archive Archive);
+    public void del(String FileNamePattern);
 }

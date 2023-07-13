@@ -8,10 +8,10 @@ import java.util.ArrayList;
  *
  * @author Toshiba
  */
-public class drive extends element{
+public class Drive extends element{
     private String letter;
     private int capacity;
-    private ArrayList<Object> data = new ArrayList<>();
+    private ArrayList<element> data = new ArrayList<>();
 
     /**
      *constructor
@@ -21,7 +21,7 @@ public class drive extends element{
      * @param id
      * @param name
      */
-    public drive(String letter, int capacity, int id, String name) {
+    public Drive(String letter, int capacity, int id, String name) {
         super(id, name);
         this.letter = letter;
         this.capacity = capacity;
@@ -52,11 +52,11 @@ public class drive extends element{
         this.letter = letter;
     }
 
-    public ArrayList<Object> getData() {
+    public ArrayList<element> getData() {
         return data;
     }
 
-    public void setData(ArrayList<Object> data) {
+    public void setData(ArrayList<element> data) {
         this.data = data;
     }
 

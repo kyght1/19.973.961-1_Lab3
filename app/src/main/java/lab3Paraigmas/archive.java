@@ -8,7 +8,79 @@ package lab3Paraigmas;
  *
  * @author Toshiba
  */
-public class archive {
+public class Archive extends element{
+    private String format;
+    private String content;
+    private String fmod;
+
+    @Override
+    public String toString() {
+        return "archive{" + "format=" + format + ", content=" + content + ", name=" + getName() + getId_father()+ '}';
+    }
+
+    public Archive(String format, String content, String fmod, int id, String name) {
+        super(id, name);
+        this.format = format;
+        this.content = content;
+        this.fmod = fmod;
+    }
+
+    public String getFormat() {
+        return format;
+    }
+
+    public void setFormat(String format) {
+        this.format = format;
+    }
+
+    public String getContent() {
+        return content;
+    }
+
+    public void setContent(String content) {
+        this.content = content;
+    }
+
+    public String getFmod() {
+        return fmod;
+    }
+
+    public void setFmod(String fmod) {
+        this.fmod = fmod;
+    }
+
+    @Override
+    public int getId() {
+        return id;
+    }
+
+    @Override
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    @Override
+    public String getName() {
+        return name;
+    }
+
+    @Override
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    @Override
+    public int getId_father() {
+        return id_father;
+    }
+
+    @Override
+    public void setId_father(int id_father) {
+        this.id_father = id_father;
+    }
+    
+    
+    
     
     
 }
