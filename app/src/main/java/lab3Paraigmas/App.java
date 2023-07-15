@@ -192,9 +192,29 @@ public class App {
                         format = sc.nextLine();
                         System.out.println("---------------------------------------");
                         //creo archivo
-                        Archive newArchive = new Archive(format,content,"",0,name);
+                        Archive newArchive = new Archive(format,content,"",0,name+"."); //esto es similar a una inicializacion
 
                         newSystem.addFile(newArchive);
+                        System.out.println("---------------------------------------");
+
+                        System.out.println(newSystem.toString());
+                    }
+                    if (option == 9) {
+                        /*del*/
+                        Scanner sc = new Scanner(System.in);
+                        String FileNamePattern;
+                       
+
+                        /*pido datos de la unidad*/
+                        System.out.printf("Ingrese el nombre de archivo o comando : ");
+                        FileNamePattern = sc.nextLine();
+
+                        
+                        System.out.println("---------------------------------------");
+                        //creo archivo
+                       
+
+                        newSystem.del(FileNamePattern);
                         System.out.println("---------------------------------------");
 
                         System.out.println(newSystem.toString());

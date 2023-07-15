@@ -19,6 +19,9 @@ public class System_ implements FileSystem {
     private ArrayList<Drive> Drives = new ArrayList<>();
     private ArrayList<User> Users = new ArrayList<>();
     private ArrayList<Route> Routes = new ArrayList<>();
+    /*añado la papelera*/
+    private ArrayList<element> Papelera = new ArrayList<>();
+    private ArrayList<Route> PapeleraRutas = new ArrayList<>();
     private String currentDate = java.time.LocalDateTime.now().format(DateTimeFormatter.ISO_DATE);
     //rodo fecha de creacion
 
@@ -69,6 +72,22 @@ public class System_ implements FileSystem {
      */
     public void setRoutes(ArrayList<Route> Routes) {
         this.Routes = Routes;
+    }
+
+    public ArrayList<element> getPapelera() {
+        return Papelera;
+    }
+
+    public void setPapelera(ArrayList<element> Papelera) {
+        this.Papelera = Papelera;
+    }
+
+    public ArrayList<Route> getPapeleraRutas() {
+        return PapeleraRutas;
+    }
+
+    public void setPapeleraRutas(ArrayList<Route> PapeleraRutas) {
+        this.PapeleraRutas = PapeleraRutas;
     }
 
     @Override
@@ -126,7 +145,7 @@ public class System_ implements FileSystem {
             Drive newDrive = new Drive(letter, capacity, contador + 1, Name);
             getDrives().add(newDrive);
             /*creo la ruta*/
-            Route newRoute = new Route(0, contador + 1, letter);
+            Route newRoute = new Route(0, contador + 1, letter, letter + ":/");
             contador++;
             getRoutes().add(newRoute);
             System.out.println("Unidad anadida con exito.");
@@ -289,7 +308,7 @@ public class System_ implements FileSystem {
                 /*lo agrego como hijo de la ruta*/
                 currentRoute.getSons().add(folderName);
                 /*creo una ruta para el directorio*/
-                Route newRoute = new Route(currentRoute.getId(), contador + 1, folderName);
+                Route newRoute = new Route(currentRoute.getId(), contador + 1, folderName, currentRoute.getStringForm() + folderName + "/");
                 getRoutes().add(newRoute);
                 contador++;
 
@@ -449,16 +468,19 @@ public class System_ implements FileSystem {
         //ruta actual
 
         if (existeUserLogged(getUsers())) {
+
+            Route currentRoute = getRoutes().get(0);
             Archive.setId(contador + 1);
+            Archive.setId_father(currentRoute.getId());
+
             Archive.setFmod(currentDate);
             int existe = 0;
             /*variable archivo para saber si existe dicho nombre correspondiente a 
             un archivo*/
             element aux = null;
 
-            Route currentRoute = getRoutes().get(0);
             Drive currentDrive = getDrives().get(0);
-            String auxarchive = Archive.getName()+".";
+            String auxarchive = Archive.getName() + ".";
             System.out.print(auxarchive);
             for (String son : currentRoute.getSons()) {
                 if (auxarchive.equals(son)) {
@@ -469,16 +491,15 @@ public class System_ implements FileSystem {
                 }
             }
             for (element data : currentDrive.getData()) {
-                    if (data.getId_father() == currentRoute.getId() && data.getName().equals(Archive.getName())) {
-                        System.out.println("voy ");
-                        aux = data;
+                if (data.getId_father() == currentRoute.getId() && data.getName().equals(Archive.getName())) {
 
-                    }
+                    aux = data;
+
                 }
+            }
 
-            if (existe == 1 && aux != null) {
-                
-                
+            if (existe == 1) {
+
                 currentDrive.getData().remove(aux);
                 //quito la ruta
                 Route aux2 = null;
@@ -492,29 +513,263 @@ public class System_ implements FileSystem {
                 currentDrive.getData().add(Archive);
                 /*creo la ruta*/
                 Route NewRoute = new Route(currentRoute.getId(),
-                        Archive.getId(), Archive.getName());
+                        Archive.getId(), Archive.getName(), currentRoute + Archive.getName() + "." + Archive.getFormat() + "/");
                 getRoutes().add(NewRoute);
                 /*lo añado como hijo*/
-                currentRoute.getSons().add(Archive.getName() + ".");
+
                 System.out.println("Archivo sobre-escrito con exito");
 
             } else { //lo añado al data
                 currentDrive.getData().add(Archive);
                 /*creo la ruta*/
                 Route NewRoute = new Route(currentRoute.getId(),
-                        Archive.getId(), Archive.getName());
+                        Archive.getId(), Archive.getName(), currentRoute.getStringForm() + Archive.getName() + "." + Archive.getFormat() + "/");
                 getRoutes().add(NewRoute);
                 currentRoute.getSons().add(Archive.getName() + ".");
                 System.out.println("Archivo anadido con exito");
             }
             contador++;
 
-        }else{
-        System.out.println("No hay usuario logueado");
+        } else {
+            System.out.println("No hay usuario logueado");
         }
 
     }
-    
-    public void del(String FileNamePattern){
+
+    /**
+     * TDA system - del: Método para eliminar un archivo o varios archivos en
+     * base a un patrón determinado. Esta versión también puede eliminar una
+     * carpeta completa con todos sus subdirectorios. El contenido eliminado se
+     * va a la papelera.
+     *
+     * @param FileNamePattern
+     */
+    @Override
+    public void del(String FileNamePattern) {
+        /*debo borrar los archivos dependiendo de lo que entre como argumento del
+        metodo*/
+        if (existeUserLogged(getUsers())) {
+            Route currentRoute = getRoutes().get(0);
+            //unidad actual
+            Drive currentDrive = getDrives().get(0);
+
+            /*caso de que borre un directorio, no elimina sub directorios*/
+            if (FileNamePattern.split("\\.").length == 1) {
+                //directorio
+                Directory directoryAux = null;
+                //array auxiliar para eliminar, al menos, el directorio padre
+                ArrayList<element> elementsToDelete = new ArrayList<>();
+
+                for (element data : currentDrive.getData()) {
+                    if ((data.getClass().getSimpleName().equals("Directory")
+                            && data.getId_father() == currentRoute.getId()
+                            && data.getName().equals(FileNamePattern))) {
+
+                        directoryAux = (Directory) data;
+
+                        elementsToDelete.add(data);
+
+                    }
+                }
+                if (directoryAux != null) {
+
+                    Route routeAux = null;
+                    /*ahora, debo revisar los hijos del directorio.. busco la ruta*/
+                    for (Route route : getRoutes()) {
+                        if (route.getName().equals(directoryAux.getName())
+                                && route.getId() == directoryAux.getId()) {
+                            routeAux = route;
+
+                        }
+
+                    }
+
+                    ///////////////////////
+                    //array auxiliar de rutas que contengan una ruta determinada dada por
+                    //FileNamePattern
+                    ArrayList<Route> routesToDelete = new ArrayList<>();
+                    for (Route route : getRoutes()) {
+                        if (route.getStringForm().contains(routeAux.getStringForm())) {
+                            routesToDelete.add(route);
+
+                        }
+                    }
+
+                    //borro las rutas
+                    getRoutes().removeAll(routesToDelete);
+                    //ahora borro la data
+
+                    for (element data : currentDrive.getData()) {
+                        //busco aquellos con id padre igual a directoryAux
+                        for (int i = 0; i < getRoutes().size(); i++) {
+                            if (getRoutes().get(i).getId() == data.getId()) {
+                                break;
+
+                            } else {
+                                if (i == getRoutes().size() - 1) {
+                                    elementsToDelete.add(data);
+
+                                }
+                            }
+                        }
+                    }
+
+                    currentDrive.getData().removeAll(elementsToDelete);
+
+                }
+            }
+
+            /*caso de que lo que borre sean archivos... comodines y comando especial*/
+            if (FileNamePattern.equals("*.*") || FileNamePattern.equals("*")) {
+                //borro todos los archivos del directorio actual y los envio a
+                //la papelera
+
+                ArrayList<element> aux = new ArrayList<>();
+                for (element data : currentDrive.getData()) {
+                    if (data.getClass().getSimpleName().equals("Archive") && data.getId_father() == currentRoute.getId()) {
+                        //lo añado a aux
+
+                        aux.add(data);
+
+                    }
+                }
+                //borro todos los archivos
+                currentDrive.getData().removeAll(aux);
+                //los mando a la papelera
+                getPapelera().addAll(aux);
+                //clear
+                aux.clear();
+                //TODO hijos y rutas
+
+                ArrayList<Route> aux2 = new ArrayList<>();
+                /*hago lo mismo para las rutas*/
+                for (Route route : getRoutes()) {
+                    if (route.getName().contains(".") && route.getId_father() == currentRoute.getId()) {
+                        aux2.add(route);
+
+                    }
+                }
+                //borro las rutas
+                getRoutes().removeAll(aux2);
+                //las añado a la papelera
+                getPapeleraRutas().addAll(aux2);
+                //clear
+                aux2.clear();
+
+                ArrayList<String> aux3 = new ArrayList<>();
+                //ahora los hijos de la ruta actual
+                for (String son : currentRoute.getSons()) {
+                    if (son.contains(".")) {
+                        aux3.add(son);
+
+                    }
+                }
+                currentRoute.getSons().removeAll(aux3);
+
+            } else {
+                //recibo el pattern con stringSlit
+                String[] Saux = FileNamePattern.split("\\.");
+                System.out.println(Saux[0] + "...." + Saux[1]);
+
+                if (Saux[0].equals("*")) { //borro todos los archivos con extension Saux[1]
+                    //drive
+                    System.out.println("Etre a borrar unos archivos en especifico");
+                    ArrayList<element> aux = new ArrayList<>();
+                    for (element data : currentDrive.getData()) {
+                        if (data.getClass().getSimpleName().equals("Archive")
+                                && data.getId_father() == currentRoute.getId()) {
+                            Archive dataAux = (Archive) data;
+                            if (dataAux.getFormat().equals(Saux[1])) {
+                                System.out.println("Etre acaaaaaaaaaaa");
+
+                                aux.add(data);
+
+                            }
+
+                        }
+                    }
+                    //elimino
+                    currentDrive.getData().removeAll(aux);
+                    getPapelera().addAll(aux);
+                    aux.clear();
+                    //rutas 
+                    ArrayList<Route> aux2 = new ArrayList<>();
+                    /*hago lo mismo para las rutas*/
+                    for (Route route : getRoutes()) {
+                        if (route.getName().contains(".") && route.getId_father() == currentRoute.getId()) {
+                            for (element data : currentDrive.getData()) {
+                                if (route.getName().contains(data.getName())) {
+                                    aux2.add(route);
+
+                                }
+                            }
+
+                        }
+                    }
+                    getRoutes().removeAll(aux2);
+                    getPapeleraRutas().addAll(aux2);
+
+                    //ahora los hijos
+                    ArrayList<String> aux3 = new ArrayList<>();
+                    //ahora los hijos de la ruta actual
+                    for (String son : currentRoute.getSons()) {
+                        if (son.contains(".")) {
+                            for (element data : currentDrive.getData()) {
+                                if (son.contains(data.getName())) {
+                                    aux3.add(son);
+
+                                }
+                            }
+
+                        }
+                    }
+                    currentRoute.getSons().removeAll(aux3);
+
+                }
+                if (!Saux[0].equals("*")) { //archivo unico
+                    //busco archivo
+                    element dataAux = null;
+                    for (element data : currentDrive.getData()) {
+                        if (data.getClass().getSimpleName().equals("Archive")
+                                && data.getId_father() == currentRoute.getId()
+                                && data.getName().equals(Saux[0] + ".")) {
+                            dataAux = data;
+
+                            getPapelera().add(data);
+
+                        }
+                    }
+                    currentDrive.getData().remove(dataAux);
+                    Route routeAux = null;
+                    for (Route route : getRoutes()) {
+                        if (route.getName().contains(dataAux.getName())) {
+                            routeAux = route;
+
+                        }
+                    }
+                    getRoutes().remove(routeAux);
+                    getPapeleraRutas().add(routeAux);
+                    //elimino hijo
+                    String sonAux = null;
+                    for (String son : currentRoute.getSons()) {
+                        if (son.contains(dataAux.getName())) {
+                            sonAux = son;
+
+                        }
+                    }
+                    currentRoute.getSons().remove(sonAux);
+                    getPapeleraRutas().add(routeAux);
+
+                }
+
+            }
+
+        }
+
     }
+
+    /**
+     * TDA system - copy: Método para copiar un archivo o carpeta desde una ruta
+     * origen a una ruta destino.
+     */
 }

@@ -15,7 +15,7 @@ public class Archive extends element{
 
     @Override
     public String toString() {
-        return "archive{" + "format=" + format + ", content=" + content + ", name=" + getName() + getId_father()+ '}';
+        return "Archive{" + "format=" + format + ", content=" + content + ", name=" + getName() + getId_father()+ '}';
     }
 
     public Archive(String format, String content, String fmod, int id, String name) {

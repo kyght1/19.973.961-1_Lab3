@@ -102,10 +102,10 @@ public class Directory extends element {
 
     @Override
     public String toString() {
-        return "directory{" + "id=" +id + ", " + name + " id_father=" + id_father + ", " + creationDate + ", " + dataDirectory +'}';
+        return "Directory{" + "id=" +id + ", " + name + " id_father=" + id_father + ", " + creationDate + ", " + dataDirectory +'}';
     }
                 
-
+   
    
 
 }

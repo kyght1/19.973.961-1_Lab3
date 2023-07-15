@@ -11,7 +11,7 @@ public class User {
 
     @Override
     public String toString() {
-        return "user{ "+ name + " , " + state + '}';
+        return "User{ "+ name + " , " + state + '}';
     }
     
 
@@ -52,3 +52,5 @@ public class User {
     
     
 }
+
+/*una herencia para representa los distintos tipos de archivo*/

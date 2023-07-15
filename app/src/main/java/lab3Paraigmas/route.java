@@ -11,10 +11,20 @@ import java.util.ArrayList;
 public class Route extends element {
    
     private ArrayList<String> Sons = new ArrayList<>();
+    private String StringForm;
 
-    public Route(int id_father, int id, String name) {
+    public Route(int id_father, int id, String name, String StringForm) {
         super(id, name);
         this.id_father = id_father;
+        this.StringForm= StringForm;
+    }
+
+    public String getStringForm() {
+        return StringForm;
+    }
+
+    public void setStringForm(String StringForm) {
+        this.StringForm = StringForm;
     }
 
     @Override
@@ -57,7 +67,7 @@ public class Route extends element {
 
     @Override
     public String toString() {
-        return "route{" + "id_father= " + id_father +", Name= " + name + ", id =" + id + "," + Sons + '}';
+        return "Route{" + "id_father= " + id_father +", Name= " + name + ", id =" + id + "," + Sons + " , "+StringForm +'}';
     }
 
     
