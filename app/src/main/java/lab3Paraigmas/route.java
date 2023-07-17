@@ -8,7 +8,7 @@ import java.util.ArrayList;
  *
  * @author Toshiba
  */
-public class Route extends element {
+public class Route extends element{
    
     private ArrayList<String> Sons = new ArrayList<>();
     private String StringForm;
@@ -18,6 +18,14 @@ public class Route extends element {
         this.id_father = id_father;
         this.StringForm= StringForm;
     }
+    
+   @Override
+   public Route clone() throws CloneNotSupportedException{
+       Route newRoute= (Route) super.clone();
+       newRoute.setSons(newRoute.getSons());
+       newRoute.setStringForm(newRoute.getStringForm());
+       return newRoute;
+   }  
 
     public String getStringForm() {
         return StringForm;

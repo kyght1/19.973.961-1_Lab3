@@ -19,7 +19,6 @@ public class Directory extends element {
     private ArrayList<String> atributes;
     private ArrayList<Object> dataDirectory;
     private String hash;
-
     public Directory(int id_father, String creationDate, String modDate, ArrayList<String> atributes, ArrayList<Object> dataDirectory, String hash, int id, String name) {
         super(id, name);
         this.id_father = id_father;
@@ -28,6 +27,17 @@ public class Directory extends element {
         this.atributes = atributes;
         this.dataDirectory = dataDirectory;
         this.hash = hash;
+    }
+    
+    @Override
+    public Directory clone() throws CloneNotSupportedException{
+        Directory newDir = (Directory) super.clone();
+        newDir.setCreationDate(newDir.getCreationDate());
+        newDir.setModDate(newDir.getModDate());
+        newDir.setAtributes(newDir.getAtributes());
+        newDir.setDataDirectory(newDir.getDataDirectory());
+        newDir.setHash(newDir.getHash());
+        return newDir;
     }
 
     @Override

@@ -24,7 +24,15 @@ public class Archive extends element{
         this.content = content;
         this.fmod = fmod;
     }
-
+    
+    @Override
+    public Archive clone() throws CloneNotSupportedException{
+        Archive newArch = (Archive) super.clone();
+        newArch.setFormat(newArch.getFormat());
+        newArch.setContent(newArch.getContent());
+        newArch.setFmod(newArch.getFmod());
+        return newArch;
+    }
     public String getFormat() {
         return format;
     }

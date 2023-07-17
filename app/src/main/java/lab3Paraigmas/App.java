@@ -59,7 +59,11 @@ public class App {
                     System.out.println("6) Crear directorio (mkdir)");
                     System.out.println("7) Cambiar directorio (cd)");
                     System.out.println("8) Anadir archivo (addFile)");
-                    System.out.println("9) Eliminar archivo o archivos (del)");
+                    System.out.println("9) Eliminar archivo(archivos) o directorio (del)");
+                    System.out.println("10) Copiar archivo o directorio (copy)");
+
+                    
+                    
 
                     System.out.println("-----------------------------------");
                     System.out.printf("Ingrese una opcion: ");
@@ -160,7 +164,7 @@ public class App {
                     if (option == 7) {
                         /*cd*/
                         Scanner sc = new Scanner(System.in);
-                        System.out.printf("Ingrese el path:");
+                        System.out.printf("Ingrese el path: ");
                         String path = sc.nextLine();
                         /*ejecuto el metodo*
                          */
@@ -215,6 +219,29 @@ public class App {
                        
 
                         newSystem.del(FileNamePattern);
+                        System.out.println("---------------------------------------");
+
+                        System.out.println(newSystem.toString());
+                    }
+                    if (option == 10) {
+                        /*copy*/
+                        Scanner sc = new Scanner(System.in);
+                        String FileOrFolder;
+                        String TargetPath;
+                       
+
+                        /*pido datos de la unidad*/
+                        System.out.printf("Ingrese el nombre de archivo o carpeta a copiar: ");
+                        FileOrFolder = sc.nextLine();
+                        System.out.printf("Ingrese ruta de destino: ");
+                        TargetPath = sc.nextLine();
+
+                        
+                        System.out.println("---------------------------------------");
+                        //creo archivo
+                       
+
+                        newSystem.copy(FileOrFolder,TargetPath);
                         System.out.println("---------------------------------------");
 
                         System.out.println(newSystem.toString());

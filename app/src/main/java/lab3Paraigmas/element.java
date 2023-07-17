@@ -8,7 +8,7 @@ package lab3Paraigmas;
  *
  * @author Toshiba
  */
-public class element{
+public class element implements Cloneable{
 
     public int id;
     public String name;

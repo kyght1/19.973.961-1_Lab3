@@ -8,10 +8,20 @@ import java.util.ArrayList;
  *
  * @author Toshiba
  */
-public class Drive extends element{
+public class Drive extends element implements Cloneable{
     private String letter;
     private int capacity;
     private ArrayList<element> data = new ArrayList<>();
+    
+    @Override
+   public Drive clone() throws CloneNotSupportedException{
+       Drive newDrive= (Drive) super.clone();
+       newDrive.setLetter(newDrive.getLetter());
+       newDrive.setCapacity(newDrive.getCapacity());
+       newDrive.setData(newDrive.getData());
+       return newDrive;
+       
+   }  
 
     /**
      *constructor

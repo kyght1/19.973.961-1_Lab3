@@ -19,4 +19,6 @@ public interface FileSystem {
     public void cd(String path);
     public void addFile(Archive Archive);
     public void del(String FileNamePattern);
+    public void copy(String FileOrFolder, String TargetPath);
+    public void move(String source, String targetPath);
 }
