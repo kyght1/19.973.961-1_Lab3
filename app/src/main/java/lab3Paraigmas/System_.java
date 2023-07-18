@@ -6,7 +6,6 @@ package lab3Paraigmas;
 
 import java.util.ArrayList;
 import java.time.format.DateTimeFormatter;
-import java.util.Collections;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -290,7 +289,7 @@ public class System_ implements FileSystem {
     @Override
     public void mkdir(String folderName) {
         /*todas las operaciones se realizan si hay un usuario logueado*/
-        if (existeUserLogged(getUsers())) {
+        if (existeUserLogged(getUsers()) && !getDrives().isEmpty()) {
 
             /*obtengo la unidad actual*/
             Drive currentDrive = getDrives().get(0);
@@ -473,7 +472,7 @@ public class System_ implements FileSystem {
  /*reviso si no existe el nombre en los hijos de la ruta actual*/
         //ruta actual
 
-        if (existeUserLogged(getUsers())) {
+        if (existeUserLogged(getUsers()) && !getDrives().isEmpty()) {
 
             Route currentRoute = getRoutes().get(0);
             Archive.setId(contador + 1);
