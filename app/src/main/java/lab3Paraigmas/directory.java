@@ -40,15 +40,6 @@ public class Directory extends element {
         return newDir;
     }
 
-    @Override
-    public int getId_father() {
-        return id_father;
-    }
-
-    @Override
-    public void setId_father(int id_father) {
-        this.id_father = id_father;
-    }
 
     public String getCreationDate() {
         return creationDate;
@@ -90,25 +81,7 @@ public class Directory extends element {
         this.hash = hash;
     }
 
-    @Override
-    public int getId() {
-        return id;
-    }
-
-    @Override
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    @Override
-    public String getName() {
-        return name;
-    }
-
-    @Override
-    public void setName(String name) {
-        this.name = name;
-    }
+    
 
     @Override
     public String toString() {

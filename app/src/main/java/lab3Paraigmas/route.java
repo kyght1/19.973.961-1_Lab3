@@ -35,15 +35,7 @@ public class Route extends element{
         this.StringForm = StringForm;
     }
 
-    @Override
-    public int getId_father() {
-        return id_father;
-    }
-
-    @Override
-    public void setId_father(int id_father) {
-        this.id_father = id_father;
-    }
+    
 
     public ArrayList<String> getSons() {
         return Sons;
@@ -51,26 +43,6 @@ public class Route extends element{
 
     public void setSons(ArrayList<String> Sons) {
         this.Sons = Sons;
-    }
-
-    @Override
-    public int getId() {
-        return id;
-    }
-
-    @Override
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    @Override
-    public String getName() {
-        return name;
-    }
-
-    @Override
-    public void setName(String name) {
-        this.name = name;
     }
 
     @Override

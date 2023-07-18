@@ -68,6 +68,7 @@ public class App {
                     System.out.println("-----------------------------------");
                     System.out.printf("Ingrese una opcion: ");
                     option = opt.nextInt();
+                    System.out.printf("\n");
                     if (option == 1) {
                         /*addDrive*/
                         Scanner sc = new Scanner(System.in);
@@ -76,16 +77,20 @@ public class App {
                         int capacity;
 
                         /*pido datos de la unidad*/
+                        System.out.printf("\n");
                         System.out.printf("Ingrese la letra de la unidad : ");
                         letter = sc.nextLine();
+                        System.out.printf("\n");
 
                         System.out.printf("Ingrese el nombre de la unidad : ");
 
                         name = sc.nextLine();
+                        System.out.printf("\n");
 
                         System.out.printf("Ingrese la capacidad de la unidad : ");
 
                         capacity = sc.nextInt();
+                        System.out.printf("\n");
                         System.out.println("---------------------------------------");
 
                         newSystem.addDrive(letter, name, capacity);
@@ -97,6 +102,7 @@ public class App {
                     if (option == 2) {
                         /*register*/
                         Scanner sc = new Scanner(System.in);
+                        System.out.printf("\n");
                         System.out.printf("Ingrese el nombre de usuario a registrar en sistema : ");
                         String username = sc.nextLine();
 
@@ -111,8 +117,10 @@ public class App {
                     if (option == 3) {
                         /*login*/
                         Scanner sc = new Scanner(System.in);
+                        System.out.printf("\n");
                         System.out.printf("Ingrese el nombre de usuario a loguear en sistema : ");
                         String username = sc.nextLine();
+                        System.out.printf("\n");
                         /*ejecuto metodo login*/
                         newSystem.login(username);
                         /*lo muestro*/
@@ -138,6 +146,7 @@ public class App {
                         String driveLetter = sc.nextLine();
                         /*ejecuto el metodo*
                          */
+                        System.out.printf("\n");
                         newSystem.switchDrive(driveLetter);
 
                         /*lo muestro*/
@@ -186,14 +195,18 @@ public class App {
                         /*pido datos de la unidad*/
                         System.out.printf("Ingrese el nombre del archivo : ");
                         name = sc.nextLine();
+                        System.out.printf("\n");
 
                         System.out.printf("Ingrese el contenido del archivo : ");
 
                         content = sc.nextLine();
+                        System.out.printf("\n");
 
                         System.out.printf("Ingrese el formato del archivo : ");
+                        
 
                         format = sc.nextLine();
+                        System.out.printf("\n");
                         System.out.println("---------------------------------------");
                         //creo archivo
                         Archive newArchive = new Archive(format,content,"",0,name+"."); //esto es similar a una inicializacion
